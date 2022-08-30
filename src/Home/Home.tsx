@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useState} from 'react'
 import {
   Platform,
   SafeAreaView,
@@ -9,19 +9,19 @@ import {
   View,
 } from 'react-native'
 import TaskList from '../components/TaskList'
-import {TasksContext} from '../context/TasksContext'
+import {useTaskList} from '../hooks/useTaskList'
 
 const Home = () => {
   const [newTask, setNewTask] = useState('')
 
-  const {tasks, addTasks} = useContext(TasksContext)
+  const {addTasks} = useTaskList()
 
   const handleAddNewTask = () => {
     const data = {
       id: String(new Date().getTime()),
       title: newTask ? newTask : 'Task empty',
     }
-    addTasks([...tasks, data])
+    addTasks(data)
   }
 
   return (
