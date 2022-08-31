@@ -14,14 +14,14 @@ import {useTaskList} from '../hooks/useTaskList'
 const Home = () => {
   const [newTask, setNewTask] = useState('')
 
-  const {addTasks} = useTaskList()
+  const {addTask} = useTaskList()
 
   const handleAddNewTask = () => {
     const data = {
       id: String(new Date().getTime()),
       title: newTask ? newTask : 'Task empty',
     }
-    addTasks(data)
+    addTask(data)
   }
 
   return (

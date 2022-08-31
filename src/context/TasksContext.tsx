@@ -11,7 +11,7 @@ interface ITasksProviderProps {
 }
 export interface ITasksContext {
   tasks: ITask[]
-  addTasks(task: ITask): Promise<void>
+  addTask(task: ITask): Promise<void>
   removeTask(id: string): Promise<void>
 }
 
@@ -35,7 +35,7 @@ export const TasksProvider = ({children}: ITasksProviderProps) => {
   const value = useMemo(
     () => ({
       tasks,
-      addTasks: async (task: ITask) => {
+      addTask: async (task: ITask) => {
         try {
           const newTaskList = [...tasks, task]
           await AsyncStorage.setItem(tasksData, JSON.stringify(newTaskList))

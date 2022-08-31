@@ -4,3 +4,4 @@ build
 android
 ios
 .expo
+__mocks__/@react-native-async-storage
