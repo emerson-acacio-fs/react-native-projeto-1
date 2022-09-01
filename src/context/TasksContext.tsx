@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, {ReactElement, useEffect, useMemo, useState} from 'react'
+
+import React, {ReactElement, useEffect, useState} from 'react'
 
 const tasksData = '@MyTasks:Tasks'
 interface ITask {
@@ -30,31 +31,34 @@ export const TasksProvider = ({children}: ITasksProviderProps) => {
       }
     }
     loadTasks()
-  })
+  }, [])
 
-  const value = useMemo(
-    () => ({
-      tasks,
-      addTask: async (task: ITask) => {
-        try {
-          const newTaskList = [...tasks, task]
-          await AsyncStorage.setItem(tasksData, JSON.stringify(newTaskList))
-          setTasks(newTaskList)
-        } catch (e) {
-          throw new Error(e as string)
-        }
-      },
-      removeTask: async (id: string) => {
-        try {
-          const newTaskList = tasks.filter(task => task.id !== id)
-          await AsyncStorage.setItem(tasksData, JSON.stringify(newTaskList))
-          setTasks(newTaskList)
-        } catch (e) {
-          throw new Error(e as string)
-        }
-      },
-    }),
-    [tasks],
+  const addTask = async (task: ITask) => {
+    try {
+      const newTaskList = [...tasks, task]
+      setTasks(newTaskList)
+      await AsyncStorage.setItem(tasksData, JSON.stringify(newTaskList))
+    } catch (e) {
+      throw new Error(e as string)
+    }
+  }
+  const removeTask = async (id: string) => {
+    try {
+      const newTaskList = tasks.filter(task => task.id !== id)
+      await AsyncStorage.setItem(tasksData, JSON.stringify(newTaskList))
+      setTasks(newTaskList)
+    } catch (e) {
+      throw new Error(e as string)
+    }
+  }
+  return (
+    <TasksContext.Provider
+      value={{
+        tasks,
+        addTask,
+        removeTask,
+      }}>
+      {children}
+    </TasksContext.Provider>
   )
-  return <TasksContext.Provider value={value}>{children}</TasksContext.Provider>
 }
