@@ -21,6 +21,7 @@ const Home = () => {
       id: String(new Date().getTime()),
       title: newTask ? newTask : 'Task empty',
     }
+
     addTask(data)
   }
 
@@ -35,6 +36,7 @@ const Home = () => {
           onChangeText={setNewTask}
         />
         <TouchableOpacity
+          testID="teste1"
           activeOpacity={0.7}
           style={styles.button}
           onPress={handleAddNewTask}>

@@ -47,13 +47,14 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
+      "source.organizeImports": false,
       "source.fixAll.eslint": true
     }
   },
   "[typescriptreact]": {
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true,
-      "source.organizeImports": true
+      "source.organizeImports": false
     }
   },
   "workbench.colorCustomizations": {
